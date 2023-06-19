@@ -1,0 +1,20 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: VPC
+metadata:
+  name: Dev-vpc
+spec:
+  forProvider:
+    region: us-east-1
+    cidrBlock: 192.168.0.0/16
+    enableDnsSupport: true
+    enableDnsHostNames: true
+    tags:
+    - key: Environment
+      value: Dev
+    - key: Owner
+      value: Selvam
+    - key: Name
+      value: Dev-vpc
+    instanceTenancy: default
+  providerConfigRef:
+    name: awsconfig
