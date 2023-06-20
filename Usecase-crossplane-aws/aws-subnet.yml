@@ -1,0 +1,45 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: Subnet
+metadata:
+  name: test-subnet-1
+spec:
+  forProvider:
+    region: us-east-1
+    availabilityZone: us-east-1a
+    cidrBlock: 192.168.1.0/24
+    vpcIdRef:
+      name: Dev-vpc
+    tags:
+    - key: Environment
+      value: Dev
+    - key: Name
+      value: test-subnet-1
+    - key: Owner
+      value: Selvam
+    mapPublicIPOnLaunch: true
+  providerConfigRef:
+    name: awsconfig
+
+---
+
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: Subnet
+metadata:
+  name: test-subnet-2
+spec:
+  forProvider:
+    region: us-east-1
+    availabilityZone: us-east-1b
+    cidrBlock: 192.168.2.0/24
+    vpcIdRef:
+      name: Dev-vpc
+    tags:
+    - key: Environment
+      value: Dev
+    - key: Name
+      value: test-subnet-2
+    - key: Owner
+      value: Pavan
+    mapPublicIPOnLaunch: true
+  providerConfigRef:
+    name: awsconfig
