@@ -1,0 +1,35 @@
+apiVersion: ec2.aws.crossplane.io/v1beta1
+kind: InternetGateway
+metadata:
+  name: Dev-internetgateway
+spec:
+  forProvider:
+    region: us-east-1
+    vpcIdRef:
+      name: Dev-vpc
+  providerConfigRef:
+    name: awsconfig
+
+--- 
+
+
+apiVersion: ec2.aws.crossplane.io/v1alpha4
+kind: RouteTable
+metadata:
+  name: test-routetable
+spec:
+  forProvider:
+    region: us-east-1
+    routes:
+      - destinationCidrBlock: 0.0.0.0/0
+        gatewayIdRef:
+          name: Dev-internetgateway
+    associations:
+      - subnetIdRef:
+          name: test-subnet-2
+      - subnetIdRef:
+          name: test-subnet-1
+    vpcIdRef:
+      name: Dev-vpc
+  providerConfigRef:
+    name: awsconfig
