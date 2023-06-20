@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-rds-connection-test
+  namespace: default
+spec:
+  containers:
+  - name: mysqlconn
+    image: mysql:latest
+    command: ['mysql']
+    args: ['-c', 'show databases;']
+    env:
+    - name: MYSQL_HOST
+      valueFrom:
+        secretKeyRef:
+          name: Dev-rds-conn-string
+          key: endpoint
+    - name: MYSQL_PWD
+      valueFrom:
+        secretKeyRef:
+          name: Dev-rds-conn-string
+          key: password
+    - name: USER
+      valueFrom:
+        secretKeyRef:
+          name: Dev-rds-conn-string
+          key: username
+    - name: MYSQL_TCP_PORT
+      valueFrom:
+        secretKeyRef:
+          name: Dev-rds-conn-string
+          key: port
